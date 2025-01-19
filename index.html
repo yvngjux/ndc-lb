@@ -51,41 +51,47 @@
             letter-spacing: -0.02em;
         }
 
-        .image-slideshow {
+        .slideshow-container {
             position: relative;
             width: 100%;
             height: 100%;
+            overflow: hidden;
         }
-
-        .image-slideshow img {
+        
+        .slideshow-image {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            position: absolute;
-            inset: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .slideshow-image.active {
+            opacity: 1;
         }
         
         @media (max-width: 768px) {
             #hero .relative.self-stretch {
-                min-height: 300px;
-                margin-top: 2rem;
-                width: 100%;
-                border-radius: 1.5rem;
-                overflow: hidden;
+                min-height: 800px !important;
+                padding-bottom: 2rem;
             }
-
+            
             #hero .grid {
                 gap: 2rem;
             }
-
-            .image-slideshow {
-                position: relative;
-                width: 100%;
-                height: 300px;
+            
+            .hero-content {
+                margin-top: 2rem;
             }
-
-            .image-slideshow img {
-                border-radius: 1.5rem;
+            
+            .slideshow-container {
+                margin-top: 2rem;
+                position: relative;
+                height: 300px;
+                width: 100%;
             }
         }
 
@@ -665,19 +671,19 @@
                 
                 <!-- Right Image -->
                 <div class="relative self-stretch overflow-hidden rounded-3xl shadow-lg">
-                    <div class="image-slideshow h-full">
+                    <div class="slideshow-container h-full">
                         <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=1000&q=80" 
                              alt="Medical Research 1" 
-                             class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000">
+                             class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000 slideshow-image active">
                         <img src="https://images.unsplash.com/photo-1582560475093-ba66accbc424?auto=format&fit=crop&w=1000&q=80" 
                              alt="Medical Research 2" 
-                             class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000">
+                             class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000 slideshow-image">
                         <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1000&q=80" 
                              alt="Medical Research 3" 
-                             class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000">
+                             class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000 slideshow-image">
                         <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=1000&q=80" 
                              alt="Medical Research 4" 
-                             class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000">
+                             class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000 slideshow-image">
                     </div>
                 </div>
             </div>
@@ -1271,7 +1277,7 @@
 
     <script>
         function initializeSlideshow() {
-            const images = document.querySelectorAll('.image-slideshow img');
+            const images = document.querySelectorAll('.slideshow-image');
             let currentIndex = 0;
             let lastIndex = -1;
             
