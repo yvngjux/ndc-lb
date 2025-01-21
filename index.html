@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Add these at the top of your style section */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+            margin: 0;
+            padding: 0;
+        }
+
         /* Navigation Styles */
         .floating-nav {
             transform: translateY(0);
@@ -104,9 +113,10 @@
             flex-direction: column;
             gap: 1.5rem;
             position: relative;
-            padding: 0rem 0.5rem;
+            padding: 0;
             background-color: white;
             overflow: hidden;
+            max-width: 100vw;
         }
 
         .loop-slider {
@@ -130,9 +140,10 @@
             display: flex;
             align-items: center;
             gap: 1 1rem;
-            color: white;
+            color: #2563eb;
             font-size: 1.1rem;
-            background-color: #2563eb;
+            background-color: white;
+            border: 1px solid #2563eb;
             border-radius: 50px;
             padding: 1rem 3rem;
             margin-right: 2rem;
@@ -144,13 +155,15 @@
         .tag:hover {
             transform: translateY(-1px);
             box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-            background-color: #1d4ed8;
+            background-color: #2563eb;
+            color: white;
         }
 
         .tag span {
             font-size: 1.2rem;
             font-weight: 600;
-            color: white;
+            color: inherit;
+            margin-right: 0.5rem;
         }
 
         .fade {
@@ -167,13 +180,33 @@
         }
 
         @media (max-width: 768px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+            
             .tag {
                 font-size: 1rem;
                 padding: 0.8rem 1.5rem;
             }
             
             .tag-list {
-                padding: 2rem 0;
+                padding: 1rem 0;
+                width: 100%;
+            }
+
+            .faq-container {
+                max-width: 100vw;
+                overflow-x: hidden;
+            }
+
+            .services-carousel {
+                max-width: 100vw;
+                margin: 0;
+                padding: 1rem 0;
             }
         }
 
@@ -653,8 +686,8 @@
                     <div class="bg-white rounded-3xl p-8 space-y-6 shadow-lg border border-gray-100">
                         <div class="space-y-2">
                             <div class="flex items-center gap-3">
-                                <span class="text-blue-600 text-4xl font-semibold">95%</span>
-                                <span class="text-gray-600 text-lg">Client Satisfaction</span>
+                                <span class="text-blue-600 text-4xl font-semibold">24/7 </span>
+                                <span class="text-gray-600 text-lg">Support Available through AI</span>
                             </div>
                         </div>
                         <div class="space-y-2">
@@ -674,17 +707,17 @@
                 <!-- Right Image -->
                 <div class="relative self-stretch overflow-hidden rounded-3xl shadow-lg">
                     <div class="slideshow-container h-full">
-                        <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=1000&q=80" 
-                             alt="Medical Research 1" 
+                        <img src="NDC%3APIC/labpic1.jpeg" 
+                             alt="NDC Laboratory 1" 
                              class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000 slideshow-image active">
-                        <img src="https://images.unsplash.com/photo-1582560475093-ba66accbc424?auto=format&fit=crop&w=1000&q=80" 
-                             alt="Medical Research 2" 
+                        <img src="NDC%3APIC/labpic2.jpeg" 
+                             alt="NDC Laboratory 2" 
                              class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000 slideshow-image">
-                        <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1000&q=80" 
-                             alt="Medical Research 3" 
+                        <img src="NDC%3APIC/labpic3.jpeg" 
+                             alt="NDC Laboratory 3" 
                              class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000 slideshow-image">
-                        <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=1000&q=80" 
-                             alt="Medical Research 4" 
+                        <img src="NDC%3APIC/labpic4.jpeg" 
+                             alt="NDC Laboratory 4" 
                              class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000 slideshow-image">
                     </div>
                 </div>
@@ -697,17 +730,17 @@
         <div class="tag-list bg-white">
             <div class="loop-slider loop-slider-forward bg-white">
                 <div class="inner">
-                    <div class="tag"><span>95%</span> Client Satisfaction</div>
-                    <div class="tag"><span>20Y</span> Of Expertise</div>
-                    <div class="tag"><span>24/7</span> Support Available</div>
-                    <div class="tag"><span>100+</span> Daily Tests</div>
-                    <div class="tag"><span>50+</span> Expert Staff</div>
+                    <div class="tag"><span>ISO & CAP</span>&nbsp;Certified</div>
+                    <div class="tag"><span>20 Years</span>&nbsp;Of Expertise</div>
+                    <div class="tag"><span>24/7</span>&nbsp;Support Available</div>
+                    <div class="tag"><span>100+</span>&nbsp;Daily Tests</div>
+                    <div class="tag"><span>50+</span>&nbsp;Expert Staff</div>
                     <!-- Duplicate for seamless loop -->
-                    <div class="tag"><span>95%</span> Client Satisfaction</div>
-                    <div class="tag"><span>20Y</span> Of Expertise</div>
-                    <div class="tag"><span>24/7</span> Support Available</div>
-                    <div class="tag"><span>100+</span> Daily Tests</div>
-                    <div class="tag"><span>50+</span> Expert Staff</div>
+                    <div class="tag"><span>ISO & CAP</span>&nbsp;Certified</div>
+                    <div class="tag"><span>20 Years</span>&nbsp;Of Expertise</div>
+                    <div class="tag"><span>24/7</span>&nbsp;Support Available</div>
+                    <div class="tag"><span>100+</span>&nbsp;Daily Tests</div>
+                    <div class="tag"><span>50+</span>&nbsp;Expert Staff</div>
                 </div>
             </div>
             <div class="loop-slider loop-slider-reverse">
@@ -739,7 +772,7 @@
                         <div>
                             <h2 class="text-4xl font-medium text-left mb-8">About us -</h2>
                             <p class="text-gray-600 text-lg mb-4 md:mb-0">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.
+                                The <i>North Diagnostic Center (NDC)</i> is a comprehensive medical destination located in Abdeh, dedicated to providing high-quality healthcare services to the residents of the North, especially the Akkar region. The center features a state-of-the-art laboratory for all types of medical tests, along with clinics for specialists in various fields, ensuring comprehensive and convenient care for patients.
                             </p>
                         </div>
                         <a href="tel:+96181205658" class="inline-flex w-fit bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition-colors order-last md:order-none mt-8 md:mt-0">Contact us</a>
@@ -749,41 +782,40 @@
                     <div class="md:col-span-2 grid grid-cols-2 md:grid-cols-3 gap-4 mb-8 md:mb-0">
                         <!-- Stats Box -->
                         <div class="bg-gray-100 rounded-2xl p-6 flex flex-col justify-center items-center h-full">
-                            <span class="text-4xl font-bold text-blue-600 mb-2">95%</span>
-                            <span class="text-gray-600">Client Satisfaction</span>
+                            <span class="text-4xl font-bold text-blue-600 mb-2">ISO & CAP</span>
+                            <span class="text-gray-600">Certified</span>
                         </div>
                         
-                        <!-- Doctor Image -->
+                        <!-- Lab Image 1 -->
                         <div class="rounded-2xl overflow-hidden h-full">
-                            <img src="https://cdn.prod.website-files.com/6759a39683657b8e1facb485/6759a39683657b8e1facc0a1_About%20Image%204.webp" 
-                                 alt="Medical Professional" 
-                                 class="w-full h-full object-cover">
-                        </div>
-                        
-                        <!-- Lab Image -->
-                        <div class="rounded-2xl overflow-hidden h-full">
-                            <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=1000&q=80" 
-                                 alt="Laboratory Equipment" 
-                                 class="w-full h-full object-cover">
-                        </div>
-                        
-                        <!-- Abstract Image -->
-                        <div class="rounded-2xl overflow-hidden h-full">
-                            <img src="https://cdn.prod.website-files.com/6759a39683657b8e1facb485/6759a39683657b8e1facc09d_About%20Image%202.webp" 
-                                 alt="Medical Research" 
+                            <img src="NDC%3APIC/labpic1.jpeg" 
+                                 alt="Modern Laboratory Equipment" 
                                  class="w-full h-full object-cover">
                         </div>
                         
                         <!-- Years Box -->
                         <div class="bg-gray-100 rounded-2xl p-6 flex flex-col justify-center items-center h-full">
-                            <span class="text-4xl font-bold text-blue-600 mb-2">20Y</span>
-                            <span class="text-gray-600">Of Expertise</span>
+                            <span class="text-4xl font-bold text-blue-600 mb-2">20</span>
+                            <span class="text-gray-600">Years Of Expertise</span>
                         </div>
                         
-                        <!-- Tech Image -->
+                        <!-- Lab Image 2 -->
                         <div class="rounded-2xl overflow-hidden h-full">
-                            <img src="https://cdn.prod.website-files.com/6759a39683657b8e1facb485/6759a39683657b8e1facc0da_Group%208.webp" 
-                                 alt="Medical Technology" 
+                            <img src="NDC%3APIC/labpic2.jpeg" 
+                                 alt="Advanced Testing Equipment" 
+                                 class="w-full h-full object-cover">
+                        </div>
+                        
+                        <!-- Support Box -->
+                        <div class="bg-gray-100 rounded-2xl p-6 flex flex-col justify-center items-center h-full">
+                            <span class="text-4xl font-bold text-blue-600 mb-2">24/7</span>
+                            <span class="text-gray-600">Support Available</span>
+                        </div>
+                        
+                        <!-- Lab Image 3 -->
+                        <div class="rounded-2xl overflow-hidden h-full">
+                            <img src="NDC%3APIC/labpic3.jpeg" 
+                                 alt="Professional Laboratory Analysis" 
                                  class="w-full h-full object-cover">
                         </div>
                     </div>
@@ -814,13 +846,13 @@
                             <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=1000&q=80" alt="Laboratory Tests" class="card-image">
                         </div>
 
-                        <div class="service-card" data-title="Medical Imaging" data-category="Radiology">
+                        <div class="service-card" data-title="Specialized Medical Clinics" data-category="Healthcare">
                             <div class="card-content">
-                                <p class="card-category">Radiology</p>
-                                <h3 class="card-title">Medical Imaging</h3>
+                                <p class="card-category">Healthcare</p>
+                                <h3 class="card-title">Specialized Medical Clinics</h3>
                             </div>
                             <div class="card-overlay"></div>
-                            <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1000&q=80" alt="Medical Imaging" class="card-image">
+                            <img src="https://images.unsplash.com/photo-1504813184591-01572f98c85f?auto=format&fit=crop&w=1000&q=80" alt="Specialized Medical Clinics" class="card-image">
                         </div>
 
                         <div class="service-card" data-title="Genetic Testing" data-category="Molecular">
@@ -906,7 +938,7 @@
                     <div class="rounded-2xl overflow-hidden mb-6">
                         <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=1000&q=80" alt="Data Validation" class="w-full h-64 object-cover">
                     </div>
-                    <h3 class="text-2xl font-medium mb-2">Data Validation</h3>
+                    <h3 class="text-2xl font-medium mb-2">Sample Analysis</h3>
                 </div>
 
                 <!-- Step 3 -->
@@ -918,7 +950,7 @@
                     <div class="rounded-2xl overflow-hidden mb-6">
                         <img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&w=1000&q=80" alt="Result Analysis" class="w-full h-64 object-cover">
                     </div>
-                    <h3 class="text-2xl font-medium mb-2">Result Analysis</h3>
+                    <h3 class="text-2xl font-medium mb-2">Sample Results</h3>
                 </div>
             </div>
         </div>
@@ -941,7 +973,7 @@
                     <p class="text-gray-600 text-lg">
                         Visit us at:<br>
                         <span class="font-medium">Address:</span><br>
-                        Al-Abda - Akkar, the main road after Benin junction towards Halba, opposite the official teacher<br>
+                        Al-Abda - Akkar, the main road after Benin junction towards Halba, opposite the official
                         George Najib Farah School<br><br>
                         <span class="font-medium">Hours of Operation:</span><br>
                         Monday to Friday: 07:00 - 15:00<br>
@@ -1013,40 +1045,40 @@
                     <div class="faq-row faq-row-forward">
                         <div class="faq-box">
                             <h3>What types of tests available?</h3>
-                            <p>Sagittis et eget sapien non. Ultrices neque tellus non non integer morbi dui at arcu.</p>
+                            <p>We offer blood analysis, genetic testing, molecular diagnostics, and specialized medical tests, with capacity for over 100+ daily tests.</p>
                         </div>
                         <div class="faq-box">
                             <h3>Do you offer custom services?</h3>
-                            <p>Sagittis et eget sapien non. Ultrices neque tellus non non integer morbi dui at arcu.</p>
+                            <p>Yes, our center features specialized medical clinics with expert staff, providing personalized care tailored to each patient's needs.</p>
                         </div>
                         <div class="faq-box">
                             <h3>How accurate are your tests?</h3>
-                            <p>Sagittis et eget sapien non. Ultrices neque tellus non non integer morbi dui at arcu.</p>
+                            <p>Our ISO & CAP certified laboratory ensures highest accuracy using advanced equipment and rigorous quality control measures.</p>
                         </div>
                         <!-- Duplicate for seamless loop -->
                         <div class="faq-box">
                             <h3>What types of tests available?</h3>
-                            <p>Sagittis et eget sapien non. Ultrices neque tellus non non integer morbi dui at arcu.</p>
+                            <p>We offer blood analysis, genetic testing, molecular diagnostics, and specialized medical tests, with capacity for over 100+ daily tests.</p>
                         </div>
                     </div>
                     <!-- Second Row (Right to Left) -->
                     <div class="faq-row faq-row-reverse">
                         <div class="faq-box">
                             <h3>What are your working hours?</h3>
-                            <p>Sagittis et eget sapien non. Ultrices neque tellus non non integer morbi dui at arcu.</p>
+                            <p>Monday to Friday: 07:00 - 15:00, Saturday: 07:00 - 12:00, with 24/7 AI support available.</p>
                         </div>
                         <div class="faq-box">
                             <h3>Do you accept insurance?</h3>
-                            <p>Sagittis et eget sapien non. Ultrices neque tellus non non integer morbi dui at arcu.</p>
+                            <p>Contact us at +961 81 205 658 or info@ndc-lb.com for information about accepted insurance providers.</p>
                         </div>
                         <div class="faq-box">
                             <h3>How long for results?</h3>
-                            <p>Sagittis et eget sapien non. Ultrices neque tellus non non integer morbi dui at arcu.</p>
+                            <p>We ensure quick and accurate processing times, with specific timing depending on the type of test.</p>
                         </div>
                         <!-- Duplicate for seamless loop -->
                         <div class="faq-box">
                             <h3>What are your working hours?</h3>
-                            <p>Sagittis et eget sapien non. Ultrices neque tellus non non integer morbi dui at arcu.</p>
+                            <p>Monday to Friday: 07:00 - 15:00, Saturday: 07:00 - 12:00, with 24/7 AI support available.</p>
                         </div>
                     </div>
                 </div>
