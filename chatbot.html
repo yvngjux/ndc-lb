@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NDC AI Assistant - Medical Chat</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="chatbot_logger.js"></script>
     <style>
         .chat-container {
             height: calc(100vh - 160px);
@@ -73,12 +75,14 @@
             <a href="index.html" class="flex items-center space-x-2">
                 <span class="text-xl font-medium text-gray-900">NDC AI Assistant</span>
             </a>
-            <a href="index.html" class="return-button hover:bg-blue-700 transition-colors flex items-center gap-2">
-                <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                </svg>
-                Return to Main Site
-            </a>
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="return-button hover:bg-blue-700 transition-colors flex items-center gap-2">
+                    <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                    Return to Main Site
+                </a>
+            </div>
         </div>
     </nav>
 
@@ -144,6 +148,7 @@
     <script>
         const DEEPSEEK_API_KEY = 'sk-0118cfb7501d4f4e984c75502e15acfc';
         const API_URL = 'https://api.deepseek.com/v1/chat/completions';
+        const logger = new ChatbotLogger();
 
         const chatForm = document.getElementById('chat-form');
         const chatContainer = document.querySelector('.chat-container');
@@ -156,7 +161,7 @@
             - NDC's medical services and test procedures
             - General health questions and test preparations
             - Working hours: Monday to Friday 07:00-15:00, Saturday 07:00-12:00
-            - Location: El Abde - Akkar, Main Road Halba - Facing George Najib Farah Public School
+            - Location: Abdeh - Akkar, Main Road Halba - Facing George Najib Farah Public School
             - Contact: +961 81 205 658
             Keep responses focused on NDC's services and medical information. For specific medical advice, recommend consulting with healthcare professionals. Keep responses concise and professional.`
         }];
@@ -208,6 +213,9 @@
                 }
 
                 const aiResponse = data.choices[0].message.content;
+                
+                // Log the interaction
+                await logger.logInteraction(message, aiResponse);
                 
                 // Update conversation history
                 conversationHistory.push(
