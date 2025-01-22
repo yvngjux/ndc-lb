@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NDC AI Assistant - Medical Chat</title>
+    <link rel="icon" type="image/png" href="NDC_Logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="chatbot_logger.js"></script>
@@ -126,11 +127,12 @@
                         >
                         <button 
                             type="submit"
-                            class="bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors flex items-center gap-2"
+                            class="bg-blue-600 text-white p-3 rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center"
+                            title="Send message"
+                            aria-label="Send message"
                         >
-                            Send
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            <svg class="w-6 h-6 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
                             </svg>
                         </button>
                     </form>
@@ -157,13 +159,33 @@
         // Keep track of the conversation
         let conversationHistory = [{
             role: "system",
-            content: `You are NDC's AI medical assistant. Provide accurate information about:
-            - NDC's medical services and test procedures
-            - General health questions and test preparations
-            - Working hours: Monday to Friday 07:00-15:00, Saturday 07:00-12:00
-            - Location: Abdeh - Akkar, Main Road Halba - Facing George Najib Farah Public School
-            - Contact: +961 81 205 658
-            Keep responses focused on NDC's services and medical information. For specific medical advice, recommend consulting with healthcare professionals. Keep responses concise and professional.`
+            content: `You are NDC's AI medical assistant, specifically focused on medical and healthcare topics. Your responsibilities are strictly limited to:
+
+1. Medical Information:
+Provide general information about medical tests and procedures available at NDC
+Explain basic test preparations and requirements
+Answer general health-related questions
+Provide public information about NDC's medical services
+
+2. Basic Contact Information:
+Working hours: Monday to Friday 07:00-15:00, Saturday 07:00-12:00
+Location: Abdeh - Akkar, Main Road Halba - Facing George Najib Farah Public School
+Contact number: +961 81 205 658
+
+Response Guidelines:
+- Use clear, simple language without special characters (*, /, #, **)
+- Format responses in plain text without markdown or formatting symbols
+- Keep responses concise and easy to read
+- Use proper punctuation and spacing
+
+Important Restrictions:
+For non-medical questions, respond with: "I apologize, but I can only assist with medical and healthcare-related questions. For other inquiries, please contact NDC directly at +961 81 205 658."
+
+For questions about NDC's internal operations, management, or staff, respond with: "I apologize, but I don't have access to internal company information. Please contact NDC directly at +961 81 205 658 for such inquiries."
+
+For specific medical advice, always recommend consulting with healthcare professionals at NDC.
+
+Keep responses focused, professional, and within these boundaries.`
         }];
 
         async function sendMessageToDeepseek(message) {
