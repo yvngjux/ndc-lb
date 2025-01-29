@@ -137,13 +137,23 @@
             line-height: 1.4;
         }
 
+        /* Slideshow Styles */
+        .relative.self-stretch {
+            margin: 1rem;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            height: 500px;
+        }
+
         .slideshow-container {
             position: relative;
             width: 100%;
             height: 100%;
             overflow: hidden;
+            border-radius: 1.5rem;
         }
-        
+
         .slideshow-image {
             position: absolute;
             top: 0;
@@ -152,9 +162,10 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            transition: opacity 0.5s ease-in-out;
+            transition: opacity 1s ease-in-out;
+            border-radius: 1.5rem;
         }
-        
+
         .slideshow-image.active {
             opacity: 1;
         }
@@ -229,13 +240,12 @@
             }
 
             .relative.self-stretch {
-                margin: 0 -1rem;
-                border-radius: 0;
+                margin: 1rem;
+                height: 300px;
             }
 
             .slideshow-container {
-                height: 300px;
-                border-radius: 0;
+                height: 100%;
             }
 
             /* Adjust navigation for mobile */
@@ -266,33 +276,67 @@
         /* Add styles for mobile menu */
         .mobile-menu {
             position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
             background: white;
-            padding: 1rem;
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
+            padding: 1.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
             z-index: 9998;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 300px;
         }
 
         .mobile-menu.active {
-            transform: translateX(0);
-        }
-
-        .mobile-menu-button {
-            display: none;
-            padding: 0.5rem;
-            background: none;
-            border: none;
-            cursor: pointer;
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+            visibility: visible;
         }
 
         @media (max-width: 768px) {
             .mobile-menu-button {
                 display: block;
+                padding: 0.5rem;
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: #374151;
             }
+
+            .floating-nav {
+                z-index: 9999;
+            }
+
+            .mobile-menu .flex {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .mobile-menu a {
+                display: block;
+                padding: 0.5rem 0;
+                color: #374151;
+                font-size: 1rem;
+                transition: color 0.2s ease;
+            }
+
+            .mobile-menu a:hover {
+                color: #2563eb;
+            }
+
+            .mobile-menu .border-t {
+                margin-top: 0.5rem;
+                padding-top: 0.5rem;
+            }
+        }
+
+        /* Remove any extra mobile menu buttons */
+        button.mobile-menu-button:not(.floating-nav button.mobile-menu-button) {
+            display: none;
         }
 
         /* Animation Keyframes */
@@ -459,7 +503,8 @@
         
         .about-box {
             transition: all 0.3s ease;
-            height: 100%;
+            aspect-ratio: 1;
+            height: 180px;
             background: white;
             border-radius: 1rem;
             overflow: hidden;
@@ -474,7 +519,7 @@
 
         .about-box.text-box {
             background: #f8fafc;
-            padding: 2rem;
+            padding: 1rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -483,30 +528,450 @@
         }
 
         .about-box.text-box .number {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 600;
             color: #2563eb;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
         }
 
         .about-box.text-box .label {
             color: #64748b;
-            font-size: 1.125rem;
+            font-size: 1rem;
         }
 
         #about-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 1.5rem;
-            height: 100%;
+            grid-template-rows: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+            max-height: 400px;
         }
 
         @media (max-width: 768px) {
             #about-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
+                gap: 0.75rem;
+                max-height: none;
             }
+            
+            .about-box {
+                height: 150px;
+            }
+            
+            .about-box.text-box {
+                padding: 0.75rem;
+            }
+            
+            .about-box.text-box .number {
+                font-size: 1.75rem;
+            }
+            
+            .about-box.text-box .label {
+                font-size: 0.875rem;
+            }
+        }
+
+        /* Services Section Styles */
+        .services-section {
+            background: white;
+            overflow: hidden;
+            padding: 0;  /* Remove section padding */
+        }
+
+        .services-section .container {
+            padding-right: 1rem;
+            padding-left: 1rem;
+        }
+
+        .services-section .text-right {
+            text-align: right !important;
+            margin-right: 0;
+            margin-left: auto;
+            margin-bottom: 2rem;
+        }
+
+        .services-section h2 {
+            text-align: right;
+        }
+
+        .services-section p {
+            text-align: right;
+            margin-right: 0;
+            margin-left: auto;
+        }
+
+        .services-carousel {
+            position: relative;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            margin-top: 0;
+            padding: 0;  /* Remove carousel padding */
+        }
+
+        /* Remove any extra spacing */
+        .services-section .text-right.mb-16 {
+            margin-bottom: 2rem;  /* Reduce margin */
+        }
+
+        /* Adjust container spacing */
+        .services-section .container {
+            padding-top: 6rem;  /* Add top padding to container instead of section */
+            padding-bottom: 6rem;
+        }
+
+        .services-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .service-card {
+            flex: 0 0 auto;
+            width: 450px;
+            height: 550px;
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        }
+
+        .card-content {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            padding: 2.5rem;
+            color: white;
+            z-index: 1;
+        }
+
+        .card-category {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .card-title {
+            font-size: 1.75rem;
+            font-weight: 500;
+            line-height: 1.25;
+        }
+
+        .carousel-nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 9999px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            color: #374151;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-nav-btn:hover:not(:disabled) {
+            background: #f3f4f6;
+            border-color: #d1d5db;
+        }
+
+        .carousel-nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Modal Styles */
+        .service-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-container {
+            position: relative;
+            width: 100%;
+            max-width: 32rem;
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            z-index: 1;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            padding: 0.5rem;
+            color: #6b7280;
+            transition: color 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: #111827;
+        }
+
+        .modal-content {
+            text-align: right;
+        }
+
+        .modal-category {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #111827;
+            margin-bottom: 1rem;
+        }
+
+        .modal-description {
+            color: #4b5563;
+            line-height: 1.5;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Adjust carousel gap and padding */
+        .services-carousel .flex {
+            gap: 2rem;
+            padding-right: 2rem;
+        }
+
+        /* Text Loop Animation Styles */
+        .text-loop-container {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            border: 1px solid #2563eb;
+            border-radius: 1rem;
+            direction: rtl;
+        }
+
+        .text-loop-content {
+            width: 100%;
+            text-align: right;
+            padding-right: 2rem;
+            direction: rtl;
+        }
+
+        .text-loop-item {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            color: #000000;
+            font-size: 1.5rem;
+            text-align: right;
+            direction: rtl;
+        }
+
+        .text-loop-item.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .text-loop-item.exit {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        .text-loop-combined {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: opacity 0.3s ease;
+            text-align: right;
+            padding-right: 2rem;
+            font-size: 1.5rem;
+            direction: rtl;
+        }
+
+        .text-loop-combined p {
+            font-size: 1.5rem;
+            margin: 0;
+            text-align: right;
+        }
+
+        .text-loop-combined.active {
+            opacity: 1;
+        }
+
+        /* FAQ Section Styles */
+        .faq-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            direction: rtl;
+        }
+
+        .faq-track {
+            overflow-x: scroll;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 1rem 0;
+            direction: rtl;
+        }
+
+        .faq-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .faq-row {
+            display: flex;
+            gap: 2rem;
+            padding-left: 2rem;
+            direction: rtl;
+        }
+
+        .faq-box {
+            background: white;
+            border: 1px solid #eee;
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 400px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            text-align: right;
+        }
+
+        .faq-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-box h3 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #333;
+            text-align: right;
+        }
+
+        .faq-box p {
+            color: #666;
+            line-height: 1.5;
+            text-align: right;
+        }
+
+        .faq-nav-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            margin-left: 2rem;
+            direction: rtl;
+        }
+
+        .faq-nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 9999px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            color: #374151;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .faq-nav-btn:hover:not(:disabled) {
+            background: #f3f4f6;
+            border-color: #d1d5db;
+        }
+
+        .faq-nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .faq-box {
+                width: 300px;
+                padding: 1.5rem;
+            }
+        }
+
+        /* Update AI button styling */
+        .ai-assistant-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white !important;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+        }
+
+        .ai-assistant-btn:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+        }
+
+        .ai-assistant-btn .ping-dot {
+            position: relative;
+            width: 6px;
+            height: 6px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .ai-assistant-btn .ping-dot::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.7);
+            animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
         }
     </style>
 </head>
@@ -514,26 +979,7 @@
     <!-- Navigation -->
     <nav class="floating-nav flex max-w-fit fixed top-10 inset-x-0 mx-auto border border-transparent rounded-full pr-4 pl-5 py-3 items-center justify-between">
         <div class="flex items-center gap-3">
-            <a href="chatbot.html" class="ai-assistant-btn inline-flex items-center gap-2 bg-blue-50 text-blue-600 px-4 py-2 rounded-full hover:bg-blue-100 transition-all duration-200">
-                <span class="text-base font-medium">الذكاء الاصطناعي</span>
-                <span class="w-2 h-2 rounded-full bg-blue-600 relative hidden md:block">
-                    <span class="absolute inset-0 rounded-full bg-blue-600/50 animate-ping"></span>
-                    <span class="absolute inset-[-4px] rounded-full bg-blue-600/30 animate-pulse"></span>
-                </span>
-            </a>
-            <a href="tel:+96181205658" class="contact-button text-base font-medium relative text-blue-600 px-4 py-2 rounded-full transition-all duration-200">
-                <span>اتصل بنا</span>
-                <span class="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent h-px opacity-50"></span>
-            </a>
-        </div>
-
-        <div class="flex items-center gap-6">
-            <div class="flex items-center gap-4">
-                <img src="NDC_Logo.png" alt="NDC شعار" class="h-6 w-auto object-contain">
-                <a href="#about" class="text-base text-neutral-600 hover:text-blue-600 transition-colors duration-200">من نحن</a>
-                <a href="#services" class="text-base text-neutral-600 hover:text-blue-600 transition-colors duration-200">خدماتنا</a>
-                <a href="#faq" class="text-base text-neutral-600 hover:text-blue-600 transition-colors duration-200">الأسئلة الشائعة</a>
-            </div>
+            <!-- Language Selection (moved to the left) -->
             <div class="relative group">
                 <button class="text-base font-medium text-neutral-600 px-3 py-1 rounded-md transition-all duration-200 flex items-center gap-1 hover:bg-gray-100">
                     AR
@@ -549,7 +995,85 @@
                 </div>
             </div>
         </div>
+
+        <div class="flex items-center gap-6">
+            <button class="mobile-menu-button md:hidden" title="فتح القائمة">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+            <div class="flex items-center gap-4 desktop-nav">
+                <!-- Logo (first) -->
+                <img src="NDC_Logo.png" alt="NDC شعار" class="h-6 w-auto object-contain">
+                <!-- من نحن (second) -->
+                <a href="#about" class="text-base text-neutral-600 hover:text-blue-600 transition-colors duration-200">من نحن</a>
+                <!-- خدماتنا (third) -->
+                <a href="#services" class="text-base text-neutral-600 hover:text-blue-600 transition-colors duration-200">خدماتنا</a>
+                <!-- الأسئلة الشائعة (fourth) -->
+                <a href="#faq" class="text-base text-neutral-600 hover:text-blue-600 transition-colors duration-200">الأسئلة الشائعة</a>
+                <!-- الذكاء الاصطناعي (fifth) -->
+                <a href="chatbot.html" class="ai-assistant-btn">
+                    <span class="text-base font-medium">الذكاء الاصطناعي</span>
+                    <span class="ping-dot"></span>
+                </a>
+                <!-- اتصل بنا (sixth) -->
+                <a href="tel:+96181205658" class="contact-button text-base font-medium relative text-blue-600 px-4 py-2 rounded-full transition-all duration-200">
+                    <span>اتصل بنا</span>
+                    <span class="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent h-px opacity-50"></span>
+                </a>
+            </div>
+        </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="flex flex-col gap-4">
+            <a href="#about" class="text-lg text-neutral-600 hover:text-blue-600 transition-colors duration-200">من نحن</a>
+            <a href="#services" class="text-lg text-neutral-600 hover:text-blue-600 transition-colors duration-200">خدماتنا</a>
+            <a href="#faq" class="text-lg text-neutral-600 hover:text-blue-600 transition-colors duration-200">الأسئلة الشائعة</a>
+            <a href="chatbot.html" class="ai-assistant-btn">
+                <span class="text-base font-medium">الذكاء الاصطناعي</span>
+                <span class="ping-dot"></span>
+            </a>
+            <a href="tel:+96181205658" class="contact-button text-base font-medium relative text-blue-600 px-4 py-2 rounded-full transition-all duration-200">
+                <span>اتصل بنا</span>
+                <span class="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent h-px opacity-50"></span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu functionality
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        let isMenuOpen = false;
+
+        mobileMenuButton.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.add('active');
+            } else {
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && isMenuOpen) {
+                mobileMenu.classList.remove('active');
+                isMenuOpen = false;
+            }
+        });
+
+        // Close menu when clicking on a link
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                isMenuOpen = false;
+            });
+        });
+    </script>
 
     <!-- Hero Section -->
     <section id="hero" class="min-h-screen bg-white relative overflow-hidden flex items-center">
@@ -576,20 +1100,20 @@
                             </div>
                         </div>
                         <div class="pt-6">
-                            <a href="tel:+96181205658" class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-all duration-200 text-base font-medium">
+                            <button onclick="handleContactClick()" class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-all duration-200 text-base font-medium">
                                 اتصل بنا
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Slideshow Section -->
-                <div class="relative self-stretch overflow-hidden rounded-3xl shadow-lg">
-                    <div class="slideshow-container h-full">
-                        <img src="NDC%3APIC/labpic1.jpeg" alt="NDC مختبر ١" class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000 slideshow-image active">
-                        <img src="NDC%3APIC/labpic2.jpeg" alt="NDC مختبر ٢" class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000 slideshow-image">
-                        <img src="NDC%3APIC/labpic3.jpeg" alt="NDC مختبر ٣" class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000 slideshow-image">
-                        <img src="NDC%3APIC/labpic4.jpeg" alt="NDC مختبر ٤" class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000 slideshow-image">
+                <!-- Slideshow Section with updated styling -->
+                <div class="relative self-stretch">
+                    <div class="slideshow-container">
+                        <img src="NDC%3APIC/labpic1.jpeg" alt="NDC مختبر ١" class="slideshow-image active">
+                        <img src="NDC%3APIC/labpic2.jpeg" alt="NDC مختبر ٢" class="slideshow-image">
+                        <img src="NDC%3APIC/labpic3.jpeg" alt="NDC مختبر ٣" class="slideshow-image">
+                        <img src="NDC%3APIC/labpic4.jpeg" alt="NDC مختبر ٤" class="slideshow-image">
                     </div>
                 </div>
             </div>
@@ -640,62 +1164,6 @@
         document.addEventListener('DOMContentLoaded', initializeSlideshow);
     </script>
 
-    <!-- Add mobile menu HTML structure -->
-    <div class="mobile-menu">
-        <div class="flex justify-between items-center mb-8">
-            <img src="NDC_Logo.png" alt="NDC شعار" class="h-6 w-auto">
-            <button class="mobile-menu-close" title="إغلاق القائمة" aria-label="إغلاق القائمة">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
-        <div class="flex flex-col gap-4">
-            <a href="#about" class="text-lg text-neutral-600 hover:text-blue-600 transition-colors duration-200">من نحن</a>
-            <a href="#services" class="text-lg text-neutral-600 hover:text-blue-600 transition-colors duration-200">خدماتنا</a>
-            <a href="#faq" class="text-lg text-neutral-600 hover:text-blue-600 transition-colors duration-200">الأسئلة الشائعة</a>
-            <div class="pt-4 border-t">
-                <div class="flex items-center gap-2">
-                    <a href="index.html" class="text-lg text-neutral-600 hover:text-blue-600 transition-colors duration-200">EN</a>
-                    <span class="text-neutral-300">|</span>
-                    <a href="index-ar.html" class="text-lg text-blue-600 font-medium">AR</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Add mobile menu button to navigation -->
-    <button class="mobile-menu-button" title="فتح القائمة" aria-label="فتح القائمة">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-        </svg>
-    </button>
-
-    <!-- Update mobile menu close button -->
-    <button class="mobile-menu-close" title="إغلاق القائمة" aria-label="إغلاق القائمة">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-    </button>
-
-    <!-- Add JavaScript for mobile menu -->
-    <script>
-        // Mobile menu functionality
-        const mobileMenuButton = document.querySelector('.mobile-menu-button');
-        const mobileMenuClose = document.querySelector('.mobile-menu-close');
-        const mobileMenu = document.querySelector('.mobile-menu');
-
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-
-        mobileMenuClose.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-    </script>
-
     <!-- Animation Section -->
     <section class="animation-section bg-white">
         <div class="tag-list bg-white">
@@ -731,55 +1199,594 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about-section bg-white py-16">
+    <section id="about" class="about-section bg-white py-24">
         <div class="container mx-auto px-4 max-w-6xl">
-            <div class="flex flex-col">
-                <!-- Grid Layout -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Left Column - Text -->
-                    <div class="md:col-span-1 flex flex-col justify-between h-full pt-2">
-                        <div>
-                            <h2 class="text-4xl font-medium text-right mb-8">من نحن -</h2>
-                            <p class="text-gray-600 text-lg mb-4 md:mb-0">
-                                <i>المركز التشخيصي الشمالي (NDC)</i> هو وجهة طبية شاملة تقع في عبده، مكرسة لتقديم خدمات الرعاية الصحية عالية الجودة لسكان الشمال، وخاصة منطقة عكار. يضم المركز مختبراً متطوراً لجميع أنواع الفحوصات الطبية، إلى جانب عيادات للمتخصصين في مختلف المجالات، مما يضمن رعاية شاملة ومريحة للمرضى.
-                            </p>
-                        </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Left Column - Text -->
+                <div class="md:col-span-1 flex flex-col justify-between h-full">
+                    <div>
+                        <h2 class="text-4xl font-medium text-gray-900 mb-6">من نحن -</h2>
+                        <p class="text-gray-600 text-lg leading-relaxed">
+                            <i>المركز التشخيصي الشمالي (NDC)</i> هو وجهة طبية شاملة تقع في عبده، مكرسة لتقديم خدمات الرعاية الصحية عالية الجودة لسكان الشمال، وخاصة منطقة عكار. يضم المركز مختبراً متطوراً لجميع أنواع الفحوصات الطبية، إلى جانب عيادات للمتخصصين في مختلف المجالات، مما يضمن رعاية شاملة ومريحة للمرضى.
+                        </p>
                     </div>
-                    <!-- Right Column - Grid -->
-                    <div class="md:col-span-2">
-                        <div id="about-grid">
-                            <!-- Box 1: MOPH -->
-                            <div class="about-box text-box">
-                                <span class="number">MOPH</span>
-                                <span class="label">معتمد</span>
-                            </div>
-                            <!-- Box 2: Lab Image -->
-                            <div class="about-box">
-                                <img src="NDC%3APIC/labpic2.jpeg" alt="مختبر NDC" class="w-full h-full object-cover">
-                            </div>
-                            <!-- Box 3: Experience -->
-                            <div class="about-box text-box">
-                                <span class="number">٢٠</span>
-                                <span class="label">عام من الخبرة</span>
-                            </div>
-                            <!-- Box 4: Lab Image -->
-                            <div class="about-box">
-                                <img src="NDC%3APIC/labpic3.jpeg" alt="مختبر NDC" class="w-full h-full object-cover">
-                            </div>
-                            <!-- Box 5: Support -->
-                            <div class="about-box text-box">
-                                <span class="number">٢٤/٧</span>
-                                <span class="label">دعم متوفر</span>
-                            </div>
-                            <!-- Box 6: Building Image -->
-                            <div class="about-box">
-                                <img src="NDC%3APIC/building.jpeg" alt="مبنى NDC" class="w-full h-full object-cover">
-                            </div>
+                    <div>
+                        <button onclick="handleContactClick()" class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-all duration-200 text-base font-medium">
+                            اتصل بنا
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Column - Grid -->
+                <div class="md:col-span-2">
+                    <div class="grid grid-cols-3 grid-rows-2 gap-6 h-full">
+                        <!-- Box 1: MOPH -->
+                        <div class="bg-gray-50 p-8 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition-shadow duration-300">
+                            <span class="text-blue-600 text-4xl font-semibold mb-2">MOPH</span>
+                            <span class="text-gray-600">معتمد</span>
+                        </div>
+
+                        <!-- Box 2: Lab Image -->
+                        <div class="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+                            <img src="NDC%3APIC/labpic2.jpeg" alt="مختبر NDC" class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- Box 3: Experience -->
+                        <div class="bg-gray-50 p-8 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition-shadow duration-300">
+                            <span class="text-blue-600 text-4xl font-semibold mb-2">٢٠</span>
+                            <span class="text-gray-600">عام من الخبرة</span>
+                        </div>
+
+                        <!-- Box 4: Lab Image -->
+                        <div class="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+                            <img src="NDC%3APIC/labpic3.jpeg" alt="مختبر NDC" class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- Box 5: Support -->
+                        <div class="bg-gray-50 p-8 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition-shadow duration-300">
+                            <span class="text-blue-600 text-4xl font-semibold mb-2">٢٤/٧</span>
+                            <span class="text-gray-600">دعم متوفر</span>
+                        </div>
+
+                        <!-- Box 6: Building Image -->
+                        <div class="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+                            <img src="NDC%3APIC/labpic4.jpeg" alt="مبنى NDC" class="w-full h-full object-cover">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section bg-white py-12">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="text-right mb-16">
+                <h2 class="text-4xl font-medium mb-4 text-[#333]">خدماتنا -</h2>
+                <p class="text-gray-600 max-w-2xl mr-auto">
+                    خدمات تشخيصية شاملة مع أحدث التقنيات وأفضل المتخصصين الطبيين
+                </p>
+            </div>
+            <div class="relative w-full">
+                <div class="services-carousel overflow-x-scroll py-4 md:py-8 scroll-smooth hide-scrollbar">
+                    <div class="flex flex-row gap-8 pl-4 max-w-7xl mx-auto">
+                        <div class="service-card" data-title="الفحوصات المخبرية" data-category="التشخيص">
+                            <div class="card-content">
+                                <p class="card-category">التشخيص</p>
+                                <h3 class="card-title">الفحوصات المخبرية</h3>
+                            </div>
+                            <div class="card-overlay"></div>
+                            <img src="NDC%3APIC/labpic1.jpeg" alt="الفحوصات المخبرية" class="card-image">
+                        </div>
+
+                        <div class="service-card" data-title="العيادات الطبية المتخصصة" data-category="الرعاية الصحية">
+                            <div class="card-content">
+                                <p class="card-category">الرعاية الصحية</p>
+                                <h3 class="card-title">العيادات الطبية المتخصصة</h3>
+                            </div>
+                            <div class="card-overlay"></div>
+                            <img src="Sample05.jpg" alt="العيادات الطبية المتخصصة" class="card-image">
+                        </div>
+
+                        <div class="service-card" data-title="الفحوصات الجينية" data-category="الفحوصات الجزيئية">
+                            <div class="card-content">
+                                <p class="card-category">الفحوصات الجزيئية</p>
+                                <h3 class="card-title">الفحوصات الجينية</h3>
+                            </div>
+                            <div class="card-overlay"></div>
+                            <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1000&q=80" alt="الفحوصات الجينية" class="card-image">
+                        </div>
+
+                        <div class="service-card" data-title="تحليل الدم" data-category="أمراض الدم">
+                            <div class="card-content">
+                                <p class="card-category">أمراض الدم</p>
+                                <h3 class="card-title">تحليل الدم</h3>
+                            </div>
+                            <div class="card-overlay"></div>
+                            <img src="Sample04.jpg" alt="تحليل الدم" class="card-image">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-start gap-2 mr-10 mt-4">
+                    <button class="carousel-nav-btn next-btn" title="الخدمات التالية">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 12H20M20 12L14 6M20 12L14 18" />
+                        </svg>
+                    </button>
+                    <button class="carousel-nav-btn prev-btn" disabled title="الخدمات السابقة">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 12H4M4 12L10 18M4 12L10 6" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Template -->
+        <div class="service-modal hidden">
+            <div class="modal-overlay"></div>
+            <div class="modal-container">
+                <button class="modal-close" title="إغلاق">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
+                </button>
+                <div class="modal-content">
+                    <p class="modal-category"></p>
+                    <h3 class="modal-title"></h3>
+                    <div class="modal-description"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousel = document.querySelector('.services-carousel');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            const cards = document.querySelectorAll('.service-card');
+            const modal = document.querySelector('.service-modal');
+            const modalOverlay = document.querySelector('.modal-overlay');
+            const modalClose = document.querySelector('.modal-close');
+            const modalCategory = document.querySelector('.modal-category');
+            const modalTitle = document.querySelector('.modal-title');
+            const modalDescription = document.querySelector('.modal-description');
+
+            function updateScrollButtons() {
+                const { scrollLeft, scrollWidth, clientWidth } = carousel;
+                prevBtn.disabled = scrollLeft <= 0;
+                nextBtn.disabled = scrollLeft >= scrollWidth - clientWidth - 10;
+            }
+
+            carousel.addEventListener('scroll', updateScrollButtons);
+            updateScrollButtons();
+
+            prevBtn.addEventListener('click', () => {
+                carousel.scrollBy({ left: -300, behavior: 'smooth' });
+            });
+
+            nextBtn.addEventListener('click', () => {
+                carousel.scrollBy({ left: 300, behavior: 'smooth' });
+            });
+
+            function openModal(card) {
+                const category = card.dataset.category;
+                const title = card.dataset.title;
+                const description = `المزيد من المعلومات حول خدمة ${title} ستكون متوفرة قريباً.`;
+                
+                modalCategory.textContent = category;
+                modalTitle.textContent = title;
+                modalDescription.textContent = description;
+                
+                requestAnimationFrame(() => {
+                    modal.classList.remove('hidden');
+                });
+            }
+
+            function closeModal() {
+                modal.classList.add('hidden');
+            }
+
+            cards.forEach(card => {
+                card.addEventListener('click', () => openModal(card));
+            });
+
+            modalOverlay.addEventListener('click', closeModal);
+            modalClose.addEventListener('click', closeModal);
+        });
+    </script>
+
+    <!-- Add JavaScript for mobile detection -->
+    <script>
+        function handleContactClick() {
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (isMobile) {
+                window.location.href = 'tel:+96181205658';
+            } else {
+                window.location.href = 'mailto:info@ndc-lb.com';
+            }
+        }
+    </script>
+
+    <!-- Process Section -->
+    <section id="process" class="process-section bg-white py-12">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="flex justify-end mb-16">
+                <div>
+                    <h2 class="text-4xl font-medium text-[#333]">مراحل العمل -</h2>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="process-card">
+                    <div class="relative mb-4">
+                        <span class="text-blue-600 text-lg font-medium">المرحلة</span>
+                        <span class="text-zinc-900 text-4xl font-medium mr-1">١</span>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden mb-6">
+                        <img src="Sample01.jpg" alt="جمع العينات" class="w-full h-64 object-cover">
+                    </div>
+                    <h3 class="text-2xl font-medium mb-2">جمع العينات</h3>
+                </div>
+
+                <div class="process-card">
+                    <div class="relative mb-4">
+                        <span class="text-blue-600 text-lg font-medium">المرحلة</span>
+                        <span class="text-zinc-900 text-4xl font-medium mr-1">٢</span>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden mb-6">
+                        <img src="Sample06.jpg" alt="تحليل العينات" class="w-full h-64 object-cover">
+                    </div>
+                    <h3 class="text-2xl font-medium mb-2">تحليل العينات</h3>
+                </div>
+
+                <div class="process-card">
+                    <div class="relative mb-4">
+                        <span class="text-blue-600 text-lg font-medium">المرحلة</span>
+                        <span class="text-zinc-900 text-4xl font-medium mr-1">٣</span>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden mb-6">
+                        <div class="text-loop-container relative inline-block w-full h-64 border border-blue-600">
+                            <div class="text-loop-content absolute inset-0 flex items-center justify-center text-right">
+                                <!-- Content will be added dynamically via JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-medium mb-2">نتائج التحاليل</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Text Loop Animation
+        class TextLoop {
+            constructor(container, items, interval = 2000) {
+                this.container = container;
+                this.items = items;
+                this.interval = interval;
+                this.currentIndex = 0;
+                this.cycleCount = 0;
+                this.init();
+            }
+
+            init() {
+                this.container.innerHTML = '';
+                
+                // Create individual items
+                this.items.forEach((item, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'text-loop-item';
+                    div.innerHTML = item;
+                    this.container.appendChild(div);
+                });
+
+                // Create combined view
+                const combinedDiv = document.createElement('div');
+                combinedDiv.className = 'text-loop-combined';
+                this.items.forEach(item => {
+                    const p = document.createElement('p');
+                    p.innerHTML = item;
+                    combinedDiv.appendChild(p);
+                });
+                this.container.appendChild(combinedDiv);
+                
+                this.elements = this.container.querySelectorAll('.text-loop-item');
+                this.combinedView = this.container.querySelector('.text-loop-combined');
+                this.show(0);
+                this.startLoop();
+            }
+
+            show(index) {
+                this.elements.forEach(el => {
+                    el.classList.remove('active', 'exit');
+                });
+                this.combinedView.classList.remove('active');
+                
+                if (index === -1) {
+                    // Show combined view
+                    this.combinedView.classList.add('active');
+                } else {
+                    // Show individual item
+                    this.elements[index].classList.add('active');
+                }
+            }
+
+            startLoop() {
+                let isShowingCombined = false;
+                
+                this.interval = setInterval(() => {
+                    if (isShowingCombined) {
+                        // Switch back to individual items
+                        this.combinedView.classList.remove('active');
+                        this.currentIndex = 0;
+                        this.show(0);
+                        isShowingCombined = false;
+                        return;
+                    }
+
+                    if (this.currentIndex === this.items.length - 1) {
+                        // Show combined view after completing one cycle
+                        this.elements[this.currentIndex].classList.add('exit');
+                        this.elements[this.currentIndex].classList.remove('active');
+                        this.show(-1);
+                        isShowingCombined = true;
+                        return;
+                    }
+
+                    // Normal rotation
+                    const current = this.elements[this.currentIndex];
+                    current.classList.add('exit');
+                    current.classList.remove('active');
+                    this.currentIndex = (this.currentIndex + 1) % this.items.length;
+                    this.show(this.currentIndex);
+                }, this.interval);
+            }
+
+            stop() {
+                clearInterval(this.interval);
+            }
+        }
+
+        // Initialize Text Loop when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.querySelector('.text-loop-content');
+            const items = [
+                '✅ تم التحقق',
+                '✅ رسالة نصية للمرضى',
+                '✅ بريد إلكتروني للأطباء'
+            ];
+            
+            new TextLoop(container, items, 2000);
+        });
+    </script>
+
+    <!-- Location Section -->
+    <section id="location" class="location-section bg-white py-24">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="flex justify-end mb-16">
+                <div>
+                    <h2 class="text-4xl font-medium text-[#333]">الموقع -</h2>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="flex flex-col justify-between h-full">
+                    <p class="text-gray-600 text-lg mb-6">
+                        يقع المركز في قلب عبده، ويتميز بسهولة الوصول إليه وتجهيزه بأحدث المرافق. قم بزيارتنا لتجربة خدمات طبية عالية المستوى في بيئة مريحة ومهنية.
+                    </p>
+                    <p class="text-gray-600 text-lg">
+                        العنوان:<br>
+                        عبده - عكار، الطريق العام حلبا - مقابل مدرسة جورج نجيب فرح الرسمية<br><br>
+                        ساعات العمل:<br>
+                        الإثنين إلى الجمعة: ٠٧:٠٠ - ١٥:٠٠<br>
+                        السبت: ٠٧:٠٠ - ١٢:٠٠
+                    </p>
+                    <button onclick="handleContactClick()" class="inline-flex w-fit bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition-colors mt-8">اتصل بنا</button>
+                </div>
+                
+                <div class="rounded-2xl overflow-hidden aspect-square w-full h-full min-h-[400px] bg-gray-100">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3129.332263596646!2d35.98264571072423!3d34.51933780628844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15222178f5e43dc5%3A0x4300a13666065b0a!2sNDC%20-%20North%20Diagnostic%20Center!5e1!3m2!1sen!2sfr!4v1737208602886!5m2!1sen!2sfr" 
+                        class="w-full h-full map-iframe"
+                        title="NDC - المركز التشخيصي الشمالي على الخريطة"
+                        allowfullscreen="">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video CTA Section -->
+    <section class="video-cta-section relative py-24 overflow-hidden">
+        <div class="container mx-auto px-4 max-w-6xl relative z-10">
+            <div class="flex flex-col items-center justify-center text-center">
+                <h2 class="text-4xl md:text-5xl font-medium text-gray-900 mb-8">
+                    قم بزيارتنا.<br> احجز موعدك الآن!
+                </h2>
+                <button onclick="handleContactClick()" class="inline-flex items-center px-8 py-3 bg-blue-600 text-white text-lg font-medium rounded-full hover:bg-blue-700 transition-colors">
+                    اتصل بنا
+                </button>
+            </div>
+        </div>
+        <video 
+            class="absolute inset-0 w-full h-full object-cover opacity-15" 
+            autoplay 
+            loop 
+            muted
+            playsinline
+            defaultMuted
+            webkit-playsinline
+        >
+            <source src="contactanim.mp4" type="video/mp4">
+        </video>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section bg-white py-24 rtl">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="text-right w-full mb-8">
+                <h2 class="text-4xl font-medium text-[#333] mb-4">الأسئلة الشائعة -</h2>
+                <div class="space-y-4">
+                    <p class="text-gray-600">
+                        أرسل سؤالك عبر البريد الإلكتروني:
+                        <a href="mailto:info@ndc-lb.com" class="text-blue-600 mr-1">info@ndc-lb.com</a>
+                    </p>
+                    <div>
+                        <button onclick="window.location.href='chatbot.html'" class="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-all duration-200 text-base font-medium">
+                            🤖 تحدث مع المساعد الذكي
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform animate-bounce-x" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-container">
+                <div class="faq-track">
+                    <div class="faq-row">
+                        <div class="faq-box">
+                            <h3>ما هي ساعات العمل في المركز؟</h3>
+                            <p>نحن نعمل من الاثنين إلى السبت، من الساعة 7:00 صباحاً حتى 7:00 مساءً.</p>
+                        </div>
+                        <div class="faq-box">
+                            <h3>هل أحتاج إلى موعد مسبق؟</h3>
+                            <p>نعم، نوصي بحجز موعد مسبق لضمان خدمة أفضل وتقليل وقت الانتظار.</p>
+                        </div>
+                        <div class="faq-box">
+                            <h3>كم تستغرق نتائج الفحوصات؟</h3>
+                            <p>تختلف المدة حسب نوع الفحص، معظم النتائج تكون جاهزة خلال 24-48 ساعة.</p>
+                        </div>
+                        <div class="faq-box">
+                            <h3>هل تقدمون خدمة الزيارات المنزلية؟</h3>
+                            <p>نعم، نقدم خدمة الزيارات المنزلية لكبار السن والحالات الخاصة.</p>
+                        </div>
+                        <div class="faq-box">
+                            <h3>هل تقبلون التأمين الصحي؟</h3>
+                            <p>نعم، نتعامل مع معظم شركات التأمين الصحي المعتمدة في لبنان.</p>
+                        </div>
+                        <div class="faq-box">
+                            <h3>كيف يمكنني الحصول على نتائج الفحوصات؟</h3>
+                            <p>يمكنك استلام النتائج شخصياً أو عبر البريد الإلكتروني المسجل.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-nav-buttons">
+                    <button class="faq-nav-btn prev-faq" disabled title="الأسئلة السابقة">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 12H4M4 12L10 18M4 12L10 6" />
+                        </svg>
+                    </button>
+                    <button class="faq-nav-btn next-faq" title="الأسئلة التالية">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 12H20M20 12L14 6M20 12L14 18" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Add this to your existing scripts
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqTrack = document.querySelector('.faq-track');
+            const prevFaqBtn = document.querySelector('.prev-faq');
+            const nextFaqBtn = document.querySelector('.next-faq');
+
+            function updateFaqButtons() {
+                const { scrollLeft, scrollWidth, clientWidth } = faqTrack;
+                prevFaqBtn.disabled = scrollLeft <= 0;
+                nextFaqBtn.disabled = scrollLeft >= scrollWidth - clientWidth - 10;
+            }
+
+            faqTrack.addEventListener('scroll', updateFaqButtons);
+            updateFaqButtons();
+
+            prevFaqBtn.addEventListener('click', () => {
+                faqTrack.scrollBy({ left: -300, behavior: 'smooth' });
+            });
+
+            nextFaqBtn.addEventListener('click', () => {
+                faqTrack.scrollBy({ left: 300, behavior: 'smooth' });
+            });
+        });
+    </script>
+
+    <!-- Footer Section -->
+    <footer class="bg-white border-t border-gray-100">
+        <div class="container mx-auto px-4 max-w-6xl py-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div class="col-span-1">
+                    <h3 class="text-xl font-medium text-gray-900 mb-4">المركز التشخيصي الشمالي</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                        وجهتك الطبية الموثوقة للرعاية الصحية عالية الجودة في شمال لبنان.
+                    </p>
+                </div>
+
+                <div class="col-span-1">
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">روابط سريعة</h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#services" class="text-gray-600 text-sm hover:text-blue-600 transition-colors">خدماتنا</a>
+                        </li>
+                        <li>
+                            <a href="#about" class="text-gray-600 text-sm hover:text-blue-600 transition-colors">من نحن</a>
+                        </li>
+                        <li>
+                            <a href="#process" class="text-gray-600 text-sm hover:text-blue-600 transition-colors">مراحل العمل</a>
+                        </li>
+                        <li>
+                            <a href="#location" class="text-gray-600 text-sm hover:text-blue-600 transition-colors">الموقع</a>
+                        </li>
+                        <li>
+                            <a href="#faq" class="text-gray-600 text-sm hover:text-blue-600 transition-colors">الأسئلة الشائعة</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-span-1">
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">ساعات العمل</h3>
+                    <ul class="space-y-3">
+                        <li class="text-gray-600 text-sm">
+                            الإثنين - الجمعة: ٠٧:٠٠ - ١٥:٠٠
+                        </li>
+                        <li class="text-gray-600 text-sm">
+                            السبت: ٠٧:٠٠ - ١٢:٠٠
+                        </li>
+                        <li class="text-gray-600 text-sm">
+                            الأحد: مغلق
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-span-1">
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">اتصل بنا</h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="tel:+96181205658" class="text-gray-600 text-sm hover:text-blue-600 transition-colors">+٩٦١ ٨١ ٢٠٥ ٦٥٨</a>
+                        </li>
+                        <li>
+                            <a href="mailto:info@ndc-lb.com" class="text-gray-600 text-sm hover:text-blue-600 transition-colors">info@ndc-lb.com</a>
+                        </li>
+                        <li class="text-gray-600 text-sm">
+                            عبده - عكار، الطريق العام حلبا
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-16 pt-8 border-t border-gray-100">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-gray-600 text-sm">© ٢٠٢٥ المركز التشخيصي الشمالي. جميع الحقوق محفوظة. <i>-- تصميم <a href="https://www.linkedin.com/in/julien-el-achkar/" class="text-blue-600 hover:text-blue-700 transition-colors">جوليان الأشقر</a></i></p>
+                    <div class="flex gap-6">
+                        <a href="#privacy" class="text-gray-600 text-sm hover:text-blue-600 transition-colors">سياسة الخصوصية</a>
+                        <a href="#terms" class="text-gray-600 text-sm hover:text-blue-600 transition-colors">شروط الخدمة</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html> 
