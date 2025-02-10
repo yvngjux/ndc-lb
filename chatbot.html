@@ -148,26 +148,14 @@
     </div>
 
     <script>
-        // Secure API key management
-        let ENCRYPTED_API_KEY = ''; // Will be set securely
-        const API_URL = 'https://api.openai.com/v1/chat/completions';
         const logger = new ChatbotLogger();
-
-        // Function to set API key securely (should be called after getting key from secure storage)
-        function setApiKey(key) {
-            if (key && key.startsWith('sk-')) {
-                ENCRYPTED_API_KEY = btoa(key);
-                return true;
-            }
-            return false;
-        }
 
         // Rate limiting configuration
         const RATE_LIMIT = {
             requests: 0,
             lastReset: Date.now(),
-            maxRequests: 3, // Maximum requests per minute
-            resetInterval: 60000, // Reset counter every minute
+            maxRequests: 3,
+            resetInterval: 60000
         };
 
         // Reset rate limit counter periodically
@@ -214,10 +202,6 @@ Keep responses focused, professional, and within these boundaries.`
 
         async function sendMessageToOpenAI(message) {
             try {
-                if (!ENCRYPTED_API_KEY) {
-                    throw new Error('API key not configured');
-                }
-
                 // Check rate limit
                 if (RATE_LIMIT.requests >= RATE_LIMIT.maxRequests) {
                     const waitTime = Math.ceil((RATE_LIMIT.resetInterval - (Date.now() - RATE_LIMIT.lastReset)) / 1000);
@@ -226,42 +210,22 @@ Keep responses focused, professional, and within these boundaries.`
 
                 RATE_LIMIT.requests++;
 
-                console.log('Sending request to OpenAI API...'); // Debug log
-                const response = await fetch(API_URL, {
+                console.log('Sending request to chat API...'); // Debug log
+                const response = await fetch('/api/chat', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + atob(ENCRYPTED_API_KEY),
-                        'Accept': 'application/json',
-                        'User-Agent': 'NDC-Medical-Assistant/1.0'
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        model: "gpt-3.5-turbo",
-                        messages: [
-                            ...conversationHistory,
-                            { role: "user", content: message }
-                        ],
-                        max_tokens: 150, // Reduced for more concise responses
-                        temperature: 0.5, // Reduced for more focused responses
-                        presence_penalty: 0.1, // Slight penalty to avoid repetition
-                        frequency_penalty: 0.1 // Slight penalty to avoid repetition
+                        message,
+                        conversationHistory
                     })
                 });
-
-                console.log('Response status:', response.status); // Debug log
 
                 if (!response.ok) {
                     const errorData = await response.text();
                     console.error('API Error:', errorData); // Debug log
-                    
-                    // Check for specific error types
-                    if (response.status === 401) {
-                        throw new Error('API key authentication failed. Please check your API key configuration.');
-                    } else if (response.status === 403) {
-                        throw new Error('Access forbidden. Please verify API key permissions.');
-                    } else {
-                        throw new Error(`API request failed: ${response.status} - ${errorData}`);
-                    }
+                    throw new Error('Failed to get response from chat API');
                 }
 
                 const data = await response.json();
@@ -294,14 +258,11 @@ Keep responses focused, professional, and within these boundaries.`
             } catch (error) {
                 console.error('Detailed Error:', error); // Debug log
                 
-                // More user-friendly error messages
-                if (error.message.includes('API key authentication failed')) {
-                    return 'I apologize, but there seems to be an issue with the API configuration. Please contact NDC technical support for assistance.';
-                } else if (error.message.includes('Failed to fetch')) {
-                    return 'I apologize, but I am having trouble connecting to the server. This might be due to network connectivity issues. Please try again later or contact NDC directly at +961 81 205 658.';
+                if (error.message.includes('Rate limit exceeded')) {
+                    return 'I apologize, but I am receiving too many requests at the moment. Please wait a moment before trying again.';
                 }
                 
-                return 'I apologize, but I am temporarily unable to process requests. Please contact NDC directly at +961 81 205 658 for immediate assistance.';
+                return 'I apologize, but I am temporarily unable to process requests. Please try again later or contact NDC directly at +961 81 205 658 for immediate assistance.';
             }
         }
 
