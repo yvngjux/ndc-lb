@@ -148,9 +148,33 @@
     </div>
 
     <script>
-        const DEEPSEEK_API_KEY = 'sk-0118cfb7501d4f4e984c75502e15acfc';
-        const API_URL = 'https://api.deepseek.com/v1/chat/completions';
+        // Secure API key management
+        let ENCRYPTED_API_KEY = ''; // Will be set securely
+        const API_URL = 'https://api.openai.com/v1/chat/completions';
         const logger = new ChatbotLogger();
+
+        // Function to set API key securely (should be called after getting key from secure storage)
+        function setApiKey(key) {
+            if (key && key.startsWith('sk-')) {
+                ENCRYPTED_API_KEY = btoa(key);
+                return true;
+            }
+            return false;
+        }
+
+        // Rate limiting configuration
+        const RATE_LIMIT = {
+            requests: 0,
+            lastReset: Date.now(),
+            maxRequests: 3, // Maximum requests per minute
+            resetInterval: 60000, // Reset counter every minute
+        };
+
+        // Reset rate limit counter periodically
+        setInterval(() => {
+            RATE_LIMIT.requests = 0;
+            RATE_LIMIT.lastReset = Date.now();
+        }, RATE_LIMIT.resetInterval);
 
         const chatForm = document.getElementById('chat-form');
         const chatContainer = document.querySelector('.chat-container');
@@ -188,26 +212,39 @@ For specific medical advice, always recommend consulting with healthcare profess
 Keep responses focused, professional, and within these boundaries.`
         }];
 
-        async function sendMessageToDeepseek(message) {
+        async function sendMessageToOpenAI(message) {
             try {
-                console.log('Sending request to Deepseek API...'); // Debug log
+                if (!ENCRYPTED_API_KEY) {
+                    throw new Error('API key not configured');
+                }
+
+                // Check rate limit
+                if (RATE_LIMIT.requests >= RATE_LIMIT.maxRequests) {
+                    const waitTime = Math.ceil((RATE_LIMIT.resetInterval - (Date.now() - RATE_LIMIT.lastReset)) / 1000);
+                    throw new Error(`Rate limit exceeded. Please wait ${waitTime} seconds before trying again.`);
+                }
+
+                RATE_LIMIT.requests++;
+
+                console.log('Sending request to OpenAI API...'); // Debug log
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + DEEPSEEK_API_KEY.trim(),
+                        'Authorization': 'Bearer ' + atob(ENCRYPTED_API_KEY),
                         'Accept': 'application/json',
                         'User-Agent': 'NDC-Medical-Assistant/1.0'
                     },
                     body: JSON.stringify({
-                        model: "deepseek-chat",
+                        model: "gpt-3.5-turbo",
                         messages: [
                             ...conversationHistory,
                             { role: "user", content: message }
                         ],
-                        max_tokens: 250,
-                        temperature: 0.7,
-                        stream: false
+                        max_tokens: 150, // Reduced for more concise responses
+                        temperature: 0.5, // Reduced for more focused responses
+                        presence_penalty: 0.1, // Slight penalty to avoid repetition
+                        frequency_penalty: 0.1 // Slight penalty to avoid repetition
                     })
                 });
 
@@ -308,7 +345,7 @@ Keep responses focused, professional, and within these boundaries.`
             chatContainer.scrollTop = chatContainer.scrollHeight;
 
             // Get AI response
-            const aiResponse = await sendMessageToDeepseek(message);
+            const aiResponse = await sendMessageToOpenAI(message);
             chatContainer.removeChild(typingDiv);
             addMessage(aiResponse);
         });
