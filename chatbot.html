@@ -8,6 +8,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="chatbot_logger.js"></script>
+    <script type="module">
+        import { injectSpeedInsights } from '@vercel/speed-insights';
+        injectSpeedInsights();
+    </script>
     <style>
         .chat-container {
             height: calc(100vh - 160px);
